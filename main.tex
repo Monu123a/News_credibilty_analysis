@@ -1,0 +1,147 @@
+\documentclass[12pt]{article}
+
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{hyperref}
+
+\geometry{margin=1in}
+
+\title{News Credibility Analysis Using Logistic Regression}
+\author{Advik Khandelwal}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+This project presents a machine learning based News Credibility Analysis
+system that predicts whether a news article is real or fake. Natural
+Language Processing (NLP) techniques and Logistic Regression are used
+to classify textual news content. The system performs preprocessing,
+feature extraction using TF-IDF, and classification with high accuracy.
+\end{abstract}
+
+\section{Introduction}
+
+The rapid spread of misinformation through online platforms has made
+automatic fake news detection an important research problem. Manual
+verification of news articles is time-consuming, motivating the use
+of machine learning techniques for automated credibility analysis.
+
+This project builds a model that classifies news articles as real or fake
+based on textual content.
+
+\section{Dataset}
+
+The dataset was obtained using KaggleHub and consists of news articles
+containing the following fields:
+
+\begin{itemize}
+\item Title
+\item Text content
+\item Label (Real or Fake)
+\end{itemize}
+
+The title and article text were combined to form the final input content.
+Missing values were removed before training.
+
+\section{Data Preprocessing}
+
+Text preprocessing was performed using Natural Language Processing
+techniques:
+
+\begin{itemize}
+\item Conversion of text to lowercase
+\item Removal of URLs and special characters
+\item Retaining alphanumeric characters
+\item Stopword removal using NLTK
+\end{itemize}
+
+A cleaned text column was generated and used for feature extraction.
+
+\section{Feature Extraction}
+
+TF-IDF (Term Frequency–Inverse Document Frequency) vectorization was used
+to convert text into numerical features.
+
+The configuration used:
+
+\begin{itemize}
+\item Maximum features: 20,000
+\item N-gram range: (1,2) (unigrams and bigrams)
+\item Minimum document frequency: 5
+\item Maximum document frequency: 0.7
+\item Sublinear term frequency scaling enabled
+\end{itemize}
+
+\section{Model Training}
+
+The dataset was split into training and testing sets using an
+80:20 ratio with stratified sampling.
+
+A Logistic Regression classifier was trained with:
+
+\begin{itemize}
+\item Maximum iterations: 2000
+\item Class weight: balanced
+\item Regularization parameter (C): 2.0
+\end{itemize}
+
+Logistic Regression was chosen due to its efficiency and strong
+performance in binary text classification problems.
+
+\section{Model Evaluation}
+
+Model performance was evaluated using precision, recall,
+F1-score, and confusion matrix metrics.
+
+\subsection{Classification Report}
+
+\begin{verbatim}
+              precision    recall  f1-score   support
+
+           0       0.97      0.96      0.96      7006
+           1       0.96      0.97      0.97      7302
+
+    accuracy                           0.96     14308
+   macro avg       0.96      0.96      0.96     14308
+weighted avg       0.96      0.96      0.96     14308
+\end{verbatim}
+
+\subsection{Confusion Matrix}
+
+\begin{verbatim}
+[[6726  280]
+ [ 232 7070]]
+\end{verbatim}
+
+The model achieves an overall accuracy of approximately 96\%, indicating
+strong predictive capability and balanced performance across both classes.
+
+\section{Model Deployment}
+
+The trained Logistic Regression model and TF-IDF vectorizer were saved
+using Python's pickle module. These saved models were later integrated
+into a Streamlit web application that allows users to input news text
+and receive real-time credibility predictions.
+
+\section{Conclusion}
+
+This project demonstrates the effectiveness of machine learning and
+NLP techniques for fake news detection. Logistic Regression combined
+with TF-IDF feature extraction provides accurate and computationally
+efficient classification results.
+
+\section{Future Work}
+
+Future improvements may include:
+
+\begin{itemize}
+\item Using deep learning models such as LSTM or Transformers
+\item Expanding dataset diversity
+\item Deploying the system on cloud platforms
+\item Adding explainable AI visualizations
+\end{itemize}
+
+\end{document}
